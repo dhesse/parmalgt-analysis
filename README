@@ -1,0 +1,34 @@
+Basic data analysis framework for parmalgt.
+*******************************************
+
+Prerequisites
+=============
+
+You will need to have
+
+* Python
+* Scipy and Numpy
+* Matplotlib
+
+installed. On my Linux box (Ubuntu 12.12) I ran into some trouble
+because I did not have dvipng installed.
+
+Basic usage
+===========
+
+With the example files provided, you may do the following to get a
+quick idea how to use this script. A detailed description will be
+added soon.
+
+$ ./analyze.py --help
+
+Will give you an overview over the command line parameters.
+
+$ ./analyze.py examples/input_show.py
+
+Will show you some properties of the data stored in example/data.005.
+
+$ ./analyze.py examples/input_cl.py
+
+Will give you the tau --> 0 limit for the data stored in
+example./data*.

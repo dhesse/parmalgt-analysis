@@ -1,0 +1,38 @@
+<analysis>
+  <directory>
+    <label>tau.003</label>
+    <path>example/data.003</path>
+    <tauval>.003</tauval>
+    <Lval>8</Lval>
+    <ntherm>10</ntherm>
+    <max_order>5</max_order>
+    <normalization>0.053058750062</normalization>
+    <swap_endian/>
+    <complex/>
+  </directory>
+  <directory>
+    <label>tau.005</label>
+    <path>example/data.005</path>
+    <tauval>.005</tauval>
+    <Lval>8</Lval>
+    <ntherm>10</ntherm>
+    <max_order>5</max_order>
+    <normalization>0.053058750062</normalization>
+    <swap_endian/>
+    <complex/>
+  </directory>
+  <directory>
+    <label>tau.0015</label>
+    <path>example/data.0015</path>
+    <tauval>.0015</tauval>
+    <Lval>8</Lval>
+    <ntherm>10</ntherm>
+    <max_order>5</max_order>
+    <normalization>0.053058750062</normalization>
+    <swap_endian/>
+    <complex/>
+  </directory>
+  <actions>
+    <extrapolate orders="2 4"/>
+  </actions>
+</analysis>
