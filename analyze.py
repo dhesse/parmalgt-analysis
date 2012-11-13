@@ -21,10 +21,16 @@ class Data:
         # determine data type
         dt = np.complex if d.complex else np.float
         files = os.listdir(d.path)
-        raw = [np.fromfile(open(d.path + "/" + f, "rb"), dt)\
-                   .byteswap(d.se).real[self.ncut*self.ord:]\
-                   *d.normalization
-               for f in files]
+        if d.se:
+            raw = [np.fromfile(open(d.path + "/" + f, "rb"), dt)\
+                       .byteswap().real[self.ncut*self.ord:]\
+                       *d.normalization
+                   for f in files]
+        else:
+            raw = [np.fromfile(open(d.path + "/" + f, "rb"), dt)\
+                       .real[self.ncut*self.ord:]\
+                       *d.normalization
+                   for f in files]
         # number of replica
         self.nrep = len(raw)
         # number of data points / replicum / order
