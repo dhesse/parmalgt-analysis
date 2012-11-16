@@ -16,7 +16,7 @@ def pretty_print(val,err,extra_err_digits = 1):
     return "{0:.{1}f}({2})".format(val, digits, err)
 
 def show(data, arg_dict):
-    for label in data:
+    for label in sorted(data.keys()):
         print "* label:", label
         for o in arg_dict["orders"]:
             print "   * order:", o
@@ -142,7 +142,7 @@ def extrapolate(data, arg_dict, f = (lambda x: 1., lambda x: x)):
         sx = sum(x)
         sa = np.sqrt(sum( ((sxsq - sx*xx)/(3*sxsq - sx**2))**2*yy**2 
                           for xx, yy in zip(x,dy)))
-        assert(abs((sigma - sa)/sa) < 1e-15)
+        assert(abs((sigma - sa)/sa) < 1e-12)
         print
         print "      cl:", pretty_print(mean, sigma)
         if arg_dict["clplot"]:

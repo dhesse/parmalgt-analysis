@@ -20,7 +20,7 @@ class Data:
         self.ncut = d.ntherm
         # determine data type
         dt = np.complex if d.complex else np.float
-        files = os.listdir(d.path)
+        files = [i for i in os.listdir(d.path) if d.fn_contains in i]
         if d.se:
             raw = [np.fromfile(open(d.path + "/" + f, "rb"), dt)\
                        .byteswap().real[self.ncut*self.ord:]\

@@ -112,7 +112,7 @@ class Analysis(Node):
             print "       Path:", d.path
             print "        Tau:", d.tauval
             print "          L:", d.L
-            print "     endian: " + "swap" if d.se else "keep"
+            print "     endian: " + ("swap" if d.se else "keep")
             print "  data type: " + "complex" if d.complex else "double"
             print "      therm:", d.ntherm
             print "      order:", d.order
@@ -137,9 +137,10 @@ class Directory(Node):
         self.label = False
         self.complex = False
         self.normalization = 1.0
+        self.fn_contains = ""
     def finalize(self):
         if not self.label:
-            self.label = self.path + str(tauval)
+            self.label = self.path
         self.parent.add_directory(self)
 
 class Label(Node):
@@ -173,6 +174,10 @@ class Ntherm(Node):
 class Normalization(Node):
     def finalize(self):
         self.parent.normalization = float(self.buffer.strip())
+
+class Filenamecontains(Node):
+    def finalize(self):
+        self.parent.fn_contains = self.buffer.strip()
 
 class Actions(Node):
     def __init__(self, attrs):

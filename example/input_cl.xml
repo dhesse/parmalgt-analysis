@@ -7,6 +7,7 @@
     <ntherm>10</ntherm>
     <max_order>5</max_order>
     <normalization>0.053058750062</normalization>
+    <filenamecontains>Gp</filenamecontains>
     <swap_endian/>
     <complex/>
   </directory>
