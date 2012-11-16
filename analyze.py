@@ -16,8 +16,10 @@ class Data:
         self.ord = d.order
         # ... tau value ...
         self.tau = d.tauval
-        # ... thermalization cutoff
+        # ... thermalization cutoff ...
         self.ncut = d.ntherm
+        # ... and the lattice size
+        self.L = d.L
         # determine data type
         dt = np.complex if d.complex else np.float
         files = [i for i in os.listdir(d.path) if d.fn_contains in i]

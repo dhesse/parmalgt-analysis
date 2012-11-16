@@ -203,10 +203,15 @@ class Extrapolate(Node):
     def __init__(self, attrs):
         # orders (for info string and attributes for function call)
         self.orders = [int(i) for i in attrs.get('orders').split()]
-        # function rom actions.py to call
+        if attrs.get('L'):
+            self.L = [int(i) for i in attrs.get('L').split()]
+        else:
+            self.L = None
+        # function from actions.py to call
         self.function = "extrapolate"
         # arguments for call
-        self.kwargs = {'orders' : self.orders}
+        self.kwargs = {'orders' : self.orders,
+                       'L_sizes' : self.L}
     def __str__(self):
         return "  --> extrapolate (tau -> 0)\n      orders = " \
             + ", ".join(str(i) for i in self.orders)

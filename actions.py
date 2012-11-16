@@ -122,30 +122,41 @@ def plot(pdfname, x, y, dy, cl, dcl, ylabel, fit_fn):
     plt.savefig(pdfname)
 
 def extrapolate(data, arg_dict, f = (lambda x: 1., lambda x: x)):
+    # check if target lattice sizes are given
+    # if not, do the extrapolation for all lattice sizes
+    if not arg_dict['L_sizes']:
+        arg_dict['L_sizes'] = set([d.L for d in data.values()])
     for o in arg_dict["orders"]:
-        print "  * order g^", o
-        x, y, dy = [], [], []
-        for label in data:
-            print "    **label:", label
-            mean, delta, tint, dtint = \
-                tauint(data[label].data, o, plots=arg_dict['uwplot'])
-            x.append(data[label].tau)
-            y.append(mean)
-            dy.append(delta)
-            print "      mean:", pretty_print(mean, delta)
-            print "      tint:", pretty_print(tint, dtint)
-        coeffs,errors = extrapolate_cl(f, x,y,dy)
-        fit_fn = lambda x : np.sum( c[0,0] * f(x) 
-                                    for c,f in zip(coeffs, f))
-        mean, sigma = coeffs[0,0], errors[0,0]**0.5
-        sxsq = sum(xx**2 for xx in x)
-        sx = sum(x)
+        print "  * order = g^" + str(o)
+        x, y, dy, cl, dcl, ffn = [], [], [], [], [], []
+        for L in arg_dict['L_sizes']:
+            print "    * L =", L
+            [i.append([]) for i in x, y, dy]
+            for label in data:
+                if data[label].L != L:
+                    continue
+                print "    ** label:", label
+                mean, delta, tint, dtint = \
+                    tauint(data[label].data, o, plots=arg_dict['uwplot'])
+                x[-1].append(data[label].tau)
+                y[-1].append(mean)
+                dy[-1].append(delta)
+                print "      mean:", pretty_print(mean, delta)
+                print "      tint:", pretty_print(tint, dtint)
+        print "    ** tau -> 0 limit"
+        coeffs,errors = extrapolate_cl(f, x[-1], y[-1], dy[-1])
+        ffn.append(lambda x : np.sum( c[0,0] * f(x) 
+                                      for c,f in zip(coeffs, f)))
+        cl.append(coeffs[0,0])
+        dcl.append(errors[0,0]**0.5)
+        sxsq = sum(xx**2 for xx in x[-1])
+        sx = sum(x[-1])
         sa = np.sqrt(sum( ((sxsq - sx*xx)/(3*sxsq - sx**2))**2*yy**2 
-                          for xx, yy in zip(x,dy)))
-        assert(abs((sigma - sa)/sa) < 1e-12)
-        print
-        print "      cl:", pretty_print(mean, sigma)
+                          for xx, yy in zip(x[-1],dy[-1])))
+        assert(abs((dcl[-1] - sa)/sa) < 1e-12)
+        print "      cl:", pretty_print(cl[-1], dcl[-1])
+        print "      " + "*"*50
         if arg_dict["clplot"]:
             ylabel = "$m_1^a$" if o == 2 else "$m_2^a$"
-            plot("cl_o{}.pdf".format(o), x, y, dy, 
-                 mean, sigma, ylabel, fit_fn) 
+            plot("cl_o{}.pdf".format(o), x[-1], y[-1], dy[-1], 
+                 cl[-1], dcl[-1], ylabel, ffn[-1]) 
