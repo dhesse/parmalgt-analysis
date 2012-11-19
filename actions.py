@@ -105,22 +105,6 @@ def extrapolate_cl(f, xdata, ydata, yerr):
     cl = ContinuumLimit(data, f)#, wij = [1/x/x for x in yerr])
     return cl.estimate(0)
 
-def plot(pdfname, x, y, dy, cl, dcl, ylabel, fit_fn):
-    fig = plt.figure()
-    pl = fig.add_subplot(111)
-    plt.xlim((-.00025,max(x)+.00025))
-    pl.set_xlabel("$\\tau_g$")
-    pl.set_ylabel(ylabel)
-    pl.errorbar(x, y, yerr=dy, fmt = "bs",
-                markersize=10)
-    pl.errorbar([0.0],[cl],yerr=[dcl], 
-                fmt="ro", markersize=10)
-    fit_x = np.linspace(0, max(x), 100)
-    fit_pts = [fit_fn(x) for x in fit_x]
-    plt.plot(fit_x, fit_pts, "r--",c='black', label="fit")
-    plt.legend(("data","cl"),'upper left', numpoints=1)
-    plt.savefig(pdfname)
-
 def mk_plot(plot):
     fig = plt.figure()
     pl = fig.add_subplot(111)
@@ -205,9 +189,3 @@ def extrapolate(data, arg_dict, f = (lambda x: 1., lambda x: x)):
                 plt.fit.append((fnx, [ffn[-1](i) for i in fnx]))
                 plt.labels.append("$L = {0}$".format(L))
 
-    for plt in arg_dict["mk_plots"]:
-        mk_plot(plt)
-        if arg_dict["clplot"]:
-            ylabel = "$m_1^a$" if o == 2 else "$m_2^a$"
-            plot("cl_o{}.pdf".format(o), x[-1], y[-1], dy[-1], 
-                 cl[-1], dcl[-1], ylabel, ffn[-1]) 

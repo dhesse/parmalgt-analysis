@@ -59,12 +59,6 @@ if __name__ == "__main__":
                               '"show" or "extrapolate" are used in '
                               'the xml input.'), 
                         action='store_true')
-    parser.add_argument('--clplot',
-                        help=('Make pdf plot for tau -> 0. '
-                              'This makes sense only if the action '
-                              '"extrapolate" is used in the xml'
-                              'input.'),
-                        action='store_true')
     # parse command line arguments
     args = parser.parse_args()
     # parse input file -> analysis object
