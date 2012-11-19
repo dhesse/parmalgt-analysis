@@ -34,6 +34,11 @@
     <complex/>
   </directory>
   <actions>
-    <extrapolate orders="2 4"/>
+    <extrapolate orders="2 4">
+      <plot orders="2" L="8" pdfname="GO2L8.pdf"
+            known="0.6382444" ylabel="$m_1^a$"/>
+      <plot orders="4" L="8" pdfname="GO4L8.pdf"
+            ylabel="$m_2^a$"/>
+    </extrapolate>
   </actions>
 </analysis>

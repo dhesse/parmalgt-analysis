@@ -95,6 +95,7 @@ class Node(object):
 class Analysis(Node):
     def __init__(self, attrs):
         self.directories = []
+        self.actions = []
     def finalize(self):
         self.parent.run = self
 
@@ -207,15 +208,50 @@ class Extrapolate(Node):
             self.L = [int(i) for i in attrs.get('L').split()]
         else:
             self.L = None
+        self.plots = []
         # function from actions.py to call
         self.function = "extrapolate"
-        # arguments for call
-        self.kwargs = {'orders' : self.orders,
-                       'L_sizes' : self.L}
     def __str__(self):
         return "  --> extrapolate (tau -> 0)\n      orders = " \
             + ", ".join(str(i) for i in self.orders)
     def finalize(self):
+        # arguments for call
+        self.kwargs = {'orders' : self.orders,
+                       'L_sizes' : self.L,
+                       'mk_plots' : self.plots}
+        self.parent.actions.append(self)
+
+class Plot(Node):
+    def __init__(self, attrs):
+        self.data = []
+        self.cl = []
+        self.fit = []
+        self.labels = []
+        self.L = [int(i) for i in attrs.get('L').split()]
+        self.orders = [int(i) for i in attrs.get('orders').split()]
+        self.pdfname = attrs.get('pdfname')
+        if attrs.get('known'):
+            self.known = [float(i) for i in attrs.get('known').split()]
+        else:
+            self.known = []
+        self.ylabel = attrs.get("ylabel") if attrs.get("ylabel") else ""
+    def finalize(self):
+        self.parent.plots.append(self)
+
+class Therm(Node):
+    def __init__(self, attrs):
+        self.orders = [int(i) for i in attrs.get('orders').split()]
+        self.start, self.end, self.step = \
+            [int(i) for i in attrs.get('range').split()]
+        self.function = "therm"
+    def __str__(self):
+        return ("  --> check thermalization effects\n"
+                "      cut-off from {0} to {1} in steps of {2}\n")\
+                .format(self.start, self.end, self.step)
+    def finalize(self):
+        self.kwargs = {'orders' : self.orders,
+                       'cutoffs' : range(self.start, self.end,
+                                         self.step)}
         self.parent.actions.append(self)
 
 def parse_file(f):
