@@ -1,0 +1,554 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome to parmalgt-analysis’s documentation! &mdash; parmalgt-analysis 0.1.2 documentation</title>
+    
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="parmalgt-analysis 0.1.2 documentation" href="#" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="#">parmalgt-analysis 0.1.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="welcome-to-parmalgt-analysis-s-documentation">
+<h1>Welcome to parmalgt-analysis&#8217;s documentation!<a class="headerlink" href="#welcome-to-parmalgt-analysis-s-documentation" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="prerequisites">
+<h1>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h1>
+<p>You will need to have</p>
+<ul class="simple">
+<li>Python</li>
+<li>Scipy and Numpy</li>
+<li>Matplotlib (a Python package)</li>
+<li>The <a class="reference external" href="https://github.com/dhesse/py-uwerr">py-uwerr</a> package (just
+copy the puwr.py file in this project&#8217;s main directory.</li>
+</ul>
+<p>installed. On my Linux box (Ubuntu 12.12) I ran into some trouble
+because I did not have dvipng installed.</p>
+<p>The code can be grabbed directly from <a class="reference external" href="https://github.com/dhesse/parmalgt-analysis">github</a>, either via <tt class="docutils literal"><span class="pre">ssh</span></tt> or http:</p>
+<div class="highlight-bash"><div class="highlight"><pre>git clone git@github.com:dhesse/parmalgt-analysist  <span class="c"># OR</span>
+git clone https://github.com/dhesse/parmalgt-analysis
+</pre></div>
+</div>
+<p>or downloaded as a <a class="reference external" href="https://github.com/dhesse/parmalgt-analysis/archive/master.zip">.zip archive</a></p>
+</div>
+<div class="section" id="basic-usage">
+<h1>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h1>
+<p>With the example files provided, you may do the following to get a
+quick idea how to use this script. A detailed description will be
+added soon. For now, try this:</p>
+<div class="highlight-python"><pre>$ ./analyze.py --help</pre>
+</div>
+<p>Will give you an overview over the command line arguments. These will
+probably change in the future. Now, lets work with the example <tt class="docutils literal"><span class="pre">xml</span></tt>
+input provided in the sub-directory <tt class="docutils literal"><span class="pre">examples</span></tt>:</p>
+<div class="highlight-python"><pre>$ ./analyze.py examples/input_show.py</pre>
+</div>
+<p>Will show you some properties of the data stored in
+<tt class="docutils literal"><span class="pre">example/data.005</span></tt>. The last example provided will take the tau &#8211;&gt;
+0 limit for the data stored in <tt class="docutils literal"><span class="pre">example./data*</span></tt>:</p>
+<div class="highlight-python"><pre>$ ./analyze.py examples/input_cl.py</pre>
+</div>
+<p>The continuum limit will be taken using the general method described
+in <a class="footnote-reference" href="#id3" id="id1">[2]</a> (to be completely independent of the form of the fit
+function), using for now an un-weighted fit. This is because also the
+naive error propagation is used to cross-check the resulting error.</p>
+<p>Feel free to ask me if anything is unclear/does not work.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>Ulli Wolff [<strong>ALPHA</strong> Collaboration],
+<em>Monte Carlo errors with less errors</em>,
+Comput. Phys. Commun. <strong>156</strong> (2004) 143-153,
+Erratum-ibid. 176 (2007) 383 <tt class="docutils literal"><span class="pre">[hep-lat/0306017]</span></tt></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td>A. Bode <em>et al.</em> [<strong>ALPHA</strong> Collaboration],
+<em>First results on the running coupling in QCD with two massless
+flavors</em>,
+Phys. Lett. B <strong>515</strong>, 49 (2001) <tt class="docutils literal"><span class="pre">[hep-lat/0105003]</span></tt>.</td></tr>
+</tbody>
+</table>
+<span class="target" id="module-analyze"></span><div class="section" id="analyze-main-analysis-script">
+<h2><a class="reference internal" href="#module-analyze" title="analyze"><tt class="xref py py-mod docutils literal"><span class="pre">analyze</span></tt></a> &#8211; main analysis script.<a class="headerlink" href="#analyze-main-analysis-script" title="Permalink to this headline">¶</a></h2>
+<p>Data analysis for numerical stochastic perturbation theory. This is
+the main script. It will</p>
+<ol class="arabic simple">
+<li>Read the <tt class="docutils literal"><span class="pre">xml</span></tt> configuration file.</li>
+<li>Read all input data as specified in the configuration.</li>
+<li>Perform the action that are specified in the input.</li>
+</ol>
+<dl class="class">
+<dt id="analyze.Data">
+<em class="property">class </em><tt class="descclassname">analyze.</tt><tt class="descname">Data</tt><big>(</big><em>d</em><big>)</big><a class="reference internal" href="modules/analyze.html#Data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#analyze.Data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read all data files from a directory. The information given in
+the <tt class="docutils literal"><span class="pre">xml</span></tt> input will be stored in various data memebers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>d</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">parser.Directory</span></tt> instance.</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="analyze.Data.L">
+<tt class="descname">L</tt><em class="property"> = None</em><a class="headerlink" href="#analyze.Data.L" title="Permalink to this definition">¶</a></dt>
+<dd><p>lattice size</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="analyze.Data.N">
+<tt class="descname">N</tt><em class="property"> = None</em><a class="headerlink" href="#analyze.Data.N" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of data points / replicum / order</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="analyze.Data.ncut">
+<tt class="descname">ncut</tt><em class="property"> = None</em><a class="headerlink" href="#analyze.Data.ncut" title="Permalink to this definition">¶</a></dt>
+<dd><p>thermalization cut-off</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="analyze.Data.nrep">
+<tt class="descname">nrep</tt><em class="property"> = None</em><a class="headerlink" href="#analyze.Data.nrep" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of replica</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="analyze.Data.ord">
+<tt class="descname">ord</tt><em class="property"> = None</em><a class="headerlink" href="#analyze.Data.ord" title="Permalink to this definition">¶</a></dt>
+<dd><p>perturbative order</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="analyze.Data.tau">
+<tt class="descname">tau</tt><em class="property"> = None</em><a class="headerlink" href="#analyze.Data.tau" title="Permalink to this definition">¶</a></dt>
+<dd><p>tau value (integration step size)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-actions"></span><div class="section" id="actions-methods-to-perform-the-data-analysis">
+<h2><a class="reference internal" href="#module-actions" title="actions"><tt class="xref py py-mod docutils literal"><span class="pre">actions</span></tt></a> &#8211; Methods to perform the data analysis<a class="headerlink" href="#actions-methods-to-perform-the-data-analysis" title="Permalink to this headline">¶</a></h2>
+<p>In this module, we collect the functions that can be applied to the
+data.</p>
+<dl class="class">
+<dt id="actions.ContinuumLimit">
+<em class="property">class </em><tt class="descclassname">actions.</tt><tt class="descname">ContinuumLimit</tt><big>(</big><em>data_in</em>, <em>fns</em>, <em>delta=None</em>, <em>wij=None</em><big>)</big><a class="reference internal" href="modules/actions.html#ContinuumLimit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#actions.ContinuumLimit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to estimate continuum limits, as presented in [hep-lat/9911018].</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data_in</strong> &#8211; The input data, in the standard format (param,
+[data]), where param is expected to contain the key &#8216;L&#8217;, wich is
+interpreted as some sort of lattice size, to be taken to
+infinity</li>
+<li><strong>fns</strong> &#8211; The functions the data is to be fitted to.</li>
+<li><strong>delta</strong> &#8211; The error on the input data.</li>
+<li><strong>wij</strong> &#8211; The weights of the data points.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="actions.ContinuumLimit.estimate">
+<tt class="descname">estimate</tt><big>(</big><em>Imin</em><big>)</big><a class="reference internal" href="modules/actions.html#ContinuumLimit.estimate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#actions.ContinuumLimit.estimate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starting from the Imin-th lattice size, determine the best
+fit parameters. This uses scipy&#8217;s built-in singual value
+decomposition.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="actions.extrapolate">
+<tt class="descclassname">actions.</tt><tt class="descname">extrapolate</tt><big>(</big><em>data</em>, <em>arg_dict</em>, <em>f=(&lt;function &lt;lambda&gt; at 0x103c7a488&gt;</em>, <em>&lt;function &lt;lambda&gt; at 0x103c7a500&gt;)</em><big>)</big><a class="reference internal" href="modules/actions.html#extrapolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#actions.extrapolate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extrapolate data. Optionally make a plot.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="actions.show">
+<tt class="descclassname">actions.</tt><tt class="descname">show</tt><big>(</big><em>data</em>, <em>arg_dict</em><big>)</big><a class="reference internal" href="modules/actions.html#show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#actions.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the mean value, estimated auto-correlaton and error
+thereof.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="actions.therm">
+<tt class="descclassname">actions.</tt><tt class="descname">therm</tt><big>(</big><em>data</em>, <em>arg_dict</em><big>)</big><a class="reference internal" href="modules/actions.html#therm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#actions.therm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate thermalization effects, make a plot.</p>
+</dd></dl>
+
+</div>
+<span class="target" id="module-xml_parser"></span><div class="section" id="xml-parser-the-xml-parser-back-end">
+<h2><a class="reference internal" href="#module-xml_parser" title="xml_parser"><tt class="xref py py-mod docutils literal"><span class="pre">xml_parser</span></tt></a> &#8211; the <tt class="docutils literal"><span class="pre">xml</span></tt> parser back-end<a class="headerlink" href="#xml-parser-the-xml-parser-back-end" title="Permalink to this headline">¶</a></h2>
+<p>This module contains the parser back-end, which relies on a <tt class="docutils literal"><span class="pre">sax</span></tt>
+parser. The general idea is that we construct a python object
+corresponding to each tag encountered during the parse. In the end, we
+effectively convert the <tt class="docutils literal"><span class="pre">xml</span></tt> to a tree of python objects.</p>
+</div>
+<div class="section" id="quick-xml-overview">
+<h2>Quick <tt class="docutils literal"><span class="pre">xml</span></tt> overview.<a class="headerlink" href="#quick-xml-overview" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Each input file <em>must</em> contain one &lt;analysis&gt; tag.</p>
+<ul>
+<li><p class="first">Each analysis contains one or more &lt;directory&gt; tags. They specify
+directories where measured data resides. If there are more than
+one data files in a directory, they are considered to be
+replica. Each &lt;directory&gt; tag contains</p>
+<ul class="simple">
+<li>A &lt;path&gt; tag where the path to the data files is given.</li>
+<li>A &lt;tauval&gt; tag that contains the value for the integrator step size
+<span class="math">\(\tau_g\)</span>.</li>
+<li>A &lt;Lval&gt; tag that contains the lattice size <span class="math">\(L/a\)</span>.</li>
+<li>A &lt;ntherm&gt; tag that contains the number of measurements per
+replicum that should be omitted to account for thermalization.</li>
+<li>A &lt;max_order&gt; tag that specifies the perturbative order.</li>
+<li>A &lt;normalization&gt; tag that specifies a normalization factor (can
+be omitted).</li>
+<li>A &lt;swap_endian&gt; tag that tells the code to swap the endianness
+of the input data.</li>
+<li>A &lt;complex_tag&gt; that tells the code that the input data is
+complex (only the real part will be used, tough).</li>
+<li>A &lt;label&gt; tag that will label the data in the analysis (can be
+omitted).</li>
+</ul>
+</li>
+<li><p class="first">Each analysis may contain one or more &lt;action&gt; tags. At the
+moment, there are three actions defined:</p>
+<blockquote>
+<div><ul class="simple">
+<li>&lt;show&gt; Just prints out the mean values, estimated
+autocorrelation time and the estimated errors thereof.</li>
+<li>&lt;extrapolate&gt; extrapolates the data linearly to zero
+integration step size.</li>
+<li>&lt;therm&gt; plots the mean value an estimated error vs. the
+thermalization cut-off to allow the user to estimate the time
+the simulation needs to thermalize.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="minimalist-example">
+<h2>Minimalist example<a class="headerlink" href="#minimalist-example" title="Permalink to this headline">¶</a></h2>
+<p>The following example shows the parser at work:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;dummy&quot;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xml</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="gp">... </span><span class="s">&lt;analysis&gt;</span>
+<span class="gp">... </span><span class="s">  &lt;directory&gt;</span>
+<span class="gp">... </span><span class="s">    &lt;label&gt;t.005&lt;/label&gt;</span>
+<span class="gp">... </span><span class="s">    &lt;path&gt;example/data.005&lt;/path&gt;</span>
+<span class="gp">... </span><span class="s">    &lt;tauval&gt;.005&lt;/tauval&gt;</span>
+<span class="gp">... </span><span class="s">    &lt;Lval&gt;8&lt;/Lval&gt;</span>
+<span class="gp">... </span><span class="s">    &lt;ntherm&gt;10&lt;/ntherm&gt;</span>
+<span class="gp">... </span><span class="s">    &lt;max_order&gt;5&lt;/max_order&gt;</span>
+<span class="gp">... </span><span class="s">    &lt;normalization&gt;0.053058750062&lt;/normalization&gt;</span>
+<span class="gp">... </span><span class="s">    &lt;swap_endian/&gt;</span>
+<span class="gp">... </span><span class="s">    &lt;complex/&gt;</span>
+<span class="gp">... </span><span class="s">  &lt;/directory&gt;</span>
+<span class="gp">... </span><span class="s">  &lt;actions&gt;</span>
+<span class="gp">... </span><span class="s">    &lt;show orders=&quot;2 4&quot;/&gt;</span>
+<span class="gp">... </span><span class="s">  &lt;/actions&gt;</span>
+<span class="gp">... </span><span class="s">&lt;/analysis&gt;</span>
+<span class="gp">... </span><span class="s">&#39;&#39;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">parser</span> <span class="kn">import</span> <span class="n">parse_file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis</span> <span class="o">=</span> <span class="n">parse_file</span><span class="p">(</span><span class="s">&quot;dummy&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis</span><span class="o">.</span><span class="n">directories</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">path</span>
+<span class="go">u&#39;example/data.005&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis</span><span class="o">.</span><span class="n">directories</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">normalization</span>
+<span class="go">0.053058750062</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis</span><span class="o">.</span><span class="n">directories</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">L</span>
+<span class="go">8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">function</span>
+<span class="go">&#39;show&#39;</span>
+</pre></div>
+</div>
+<p>Don&#8217;t forget to check out the examples in the sub-directory
+<tt class="docutils literal"><span class="pre">example</span></tt> of the source tree.</p>
+<dl class="class">
+<dt id="xml_parser.Directory">
+<em class="property">class </em><tt class="descclassname">xml_parser.</tt><tt class="descname">Directory</tt><big>(</big><em>attrs</em><big>)</big><a class="reference internal" href="modules/xml_parser.html#Directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xml_parser.Directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directory to read data from.</p>
+<dl class="attribute">
+<dt id="xml_parser.Directory.complex">
+<tt class="descname">complex</tt><em class="property"> = None</em><a class="headerlink" href="#xml_parser.Directory.complex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Complex data?</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="xml_parser.Directory.fn_contains">
+<tt class="descname">fn_contains</tt><em class="property"> = None</em><a class="headerlink" href="#xml_parser.Directory.fn_contains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter for file names.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="xml_parser.Directory.normalization">
+<tt class="descname">normalization</tt><em class="property"> = None</em><a class="headerlink" href="#xml_parser.Directory.normalization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalization.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="xml_parser.Directory.path">
+<tt class="descname">path</tt><em class="property"> = None</em><a class="headerlink" href="#xml_parser.Directory.path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="xml_parser.Directory.se">
+<tt class="descname">se</tt><em class="property"> = None</em><a class="headerlink" href="#xml_parser.Directory.se" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switch endianness?</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="xml_parser.Directory.tauval">
+<tt class="descname">tauval</tt><em class="property"> = None</em><a class="headerlink" href="#xml_parser.Directory.tauval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integration step size.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="xml_parser.Node">
+<em class="property">class </em><tt class="descclassname">xml_parser.</tt><tt class="descname">Node</tt><a class="reference internal" href="modules/xml_parser.html#Node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xml_parser.Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for all tags.  This is used to make handling parent
+nodes etc. somewhat easier. <strong>Make any class you define for your
+own tags inherit from this one</strong>! This will guarantee that your
+class will know its parent tag and the parent process. For
+example, you can implement you own <tt class="docutils literal"><span class="pre">xml</span></tt> tag that communicates
+with the process that it is associated with like that:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">foo</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+  <span class="c"># make parent aware of its foo</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_process</span><span class="p">()</span><span class="o">.</span><span class="n">foo</span> <span class="o">=</span> <span class="bp">self</span>
+  <span class="c"># do nothing when the tag is closed</span>
+  <span class="k">def</span> <span class="nf">finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>Furthermore, any object derived from Node will know the text found
+between the opening and the closing tag in its <tt class="docutils literal"><span class="pre">buffer</span></tt>
+member. To access it, you would proceed like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">bar</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+  <span class="c"># tell parent to which bar to go</span>
+  <span class="k">def</span> <span class="nf">finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span>
+</pre></div>
+</div>
+<p>Given an <tt class="docutils literal"><span class="pre">xml</span></tt> document structure like</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;foo&gt;</span>
+  <span class="c">&lt;!-- ... grab Liz, go to the Winchester, have a nice cold</span>
+<span class="c">  pint, and wait for all of this to blow over ... --&gt;</span>
+  <span class="nt">&lt;bar&gt;</span>The Winchester<span class="nt">&lt;/bar&gt;</span>
+<span class="nt">&lt;/foo&gt;</span>
+</pre></div>
+</div>
+<p>The parser will create a <tt class="docutils literal"><span class="pre">foo</span></tt> instance with <tt class="docutils literal"><span class="pre">foo.bar</span></tt>
+containing the string &#8220;The Winchester&#8221;.</p>
+<dl class="method">
+<dt id="xml_parser.Node.characters">
+<tt class="descname">characters</tt><big>(</big><em>data</em><big>)</big><a class="reference internal" href="modules/xml_parser.html#Node.characters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xml_parser.Node.characters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default characters method, just buffer them. This is what
+lets you access the text between the enclosing tags in
+<cite>self.buffer</cite> of any derived object&#8217;s instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>str.</em>) &#8211; Characters to append.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="xml_parser.Root">
+<em class="property">class </em><tt class="descclassname">xml_parser.</tt><tt class="descname">Root</tt><big>(</big><em>xml_filename</em><big>)</big><a class="reference internal" href="modules/xml_parser.html#Root"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xml_parser.Root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Root code element.</p>
+<dl class="method">
+<dt id="xml_parser.Root.characters">
+<tt class="descname">characters</tt><big>(</big><em>data</em><big>)</big><a class="reference internal" href="modules/xml_parser.html#Root.characters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xml_parser.Root.characters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pass on the characters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xml_parser.Root.endElement">
+<tt class="descname">endElement</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="modules/xml_parser.html#Root.endElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xml_parser.Root.endElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call finalize on current element and reset the current to
+the previous parent.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xml_parser.Root.startElement">
+<tt class="descname">startElement</tt><big>(</big><em>name</em>, <em>attrs</em><big>)</big><a class="reference internal" href="modules/xml_parser.html#Root.startElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xml_parser.Root.startElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an elemt with name corresponding to the tag
+name. Ignores attributes</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="xml_parser.create_element">
+<tt class="descclassname">xml_parser.</tt><tt class="descname">create_element</tt><big>(</big><em>name</em>, <em>parent</em>, <em>attrs</em><big>)</big><a class="reference internal" href="modules/xml_parser.html#create_element"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xml_parser.create_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an element of the process.  This is done by
+instantiating the object with corresponding name. This means, to
+make <tt class="docutils literal"><span class="pre">jekyll</span></tt> understand the tag &lt;my-tag&gt;, it is enough to
+define the class My-tag (note capitalization) in this namespace
+and have it inherit from Node to add some convenience functions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<em>str.</em>) &#8211; Name of the tag encountered. Should match the name of
+the object to be created.</li>
+<li><strong>parent</strong> (<em>Class</em>) &#8211; The parent object (usually derived from
+<a class="reference internal" href="#xml_parser.Node" title="xml_parser.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a>).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xml_parser.parse_file">
+<tt class="descclassname">xml_parser.</tt><tt class="descname">parse_file</tt><big>(</big><em>f</em><big>)</big><a class="reference internal" href="modules/xml_parser.html#parse_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xml_parser.parse_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse an entire <tt class="docutils literal"><span class="pre">xml</span></tt> file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> &#8211; Name of the <tt class="docutils literal"><span class="pre">xml</span></tt> file to parse.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Name type:</th><td class="field-body">str.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <tt class="xref py py-class docutils literal"><span class="pre">Project</span></tt> object resulting from the parse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to parmalgt-analysis&#8217;s documentation!</a></li>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="#basic-usage">Basic usage</a><ul>
+<li><a class="reference internal" href="#analyze-main-analysis-script"><tt class="docutils literal"><span class="pre">analyze</span></tt> &#8211; main analysis script.</a></li>
+<li><a class="reference internal" href="#actions-methods-to-perform-the-data-analysis"><tt class="docutils literal"><span class="pre">actions</span></tt> &#8211; Methods to perform the data analysis</a></li>
+<li><a class="reference internal" href="#xml-parser-the-xml-parser-back-end"><tt class="docutils literal"><span class="pre">xml_parser</span></tt> &#8211; the <tt class="docutils literal"><span class="pre">xml</span></tt> parser back-end</a></li>
+<li><a class="reference internal" href="#quick-xml-overview">Quick <tt class="docutils literal"><span class="pre">xml</span></tt> overview.</a></li>
+<li><a class="reference internal" href="#minimalist-example">Minimalist example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="#">parmalgt-analysis 0.1.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Dirk Hesse.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
