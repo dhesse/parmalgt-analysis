@@ -27,9 +27,6 @@ Files
 ``parser.py``
         The parser for the ``xml`` input files.
 
-``puwr.py``
-        My implementation of the error analysis described in [1]_.
-
 Basic usage
 ===========
 
@@ -46,8 +43,8 @@ input provided in the sub-directory ``examples``::
   $ ./analyze.py examples/input_show.py
 
 Will show you some properties of the data stored in
-``example/data.005``. The last example provided will take the tau -->
-0 limit for the data stored in ``example./data*``::
+``example/data.005``. The last example provided will take the
+:math:`\tau \to 0` limit for the data stored in ``example./data*``::
 
   $ ./analyze.py examples/input_cl.py
 
