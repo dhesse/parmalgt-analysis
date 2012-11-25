@@ -1,3 +1,13 @@
+"""
+:mod:`actions` -- Methods to perform the data analysis
+=======================================================
+
+.. module: actions
+
+In this module, we collect the functions that can be applied to the
+data.
+"""
+
 from puwr import tauint
 from math import log
 import numpy as np
@@ -16,6 +26,8 @@ def pretty_print(val,err,extra_err_digits = 1):
     return "{0:.{1}f}({2})".format(val, digits, err)
 
 def show(data, arg_dict):
+    """Display the mean value, estimated auto-correlaton and error
+    thereof."""
     for label in sorted(data.keys()):
         print "* label:", label
         for o in arg_dict["orders"]:
@@ -27,21 +39,20 @@ def show(data, arg_dict):
                                           
 class ContinuumLimit(object):
     """Class to estimate continuum limits, as presented in [hep-lat/9911018].
+    
+    :param data_in: The input data, in the standard format (param,
+      [data]), where param is expected to contain the key 'L', wich is
+      interpreted as some sort of lattice size, to be taken to
+      infinity
+
+    :param fns: The functions the data is to be fitted to.
+
+    :param delta: The error on the input data.
+
+    :param wij: The weights of the data points.
     """
+
     def __init__(self, data_in, fns, delta = None, wij = None):
-        """Constructor.
-
-        Parameters:
-        data_in (iterable): The input data, in the standard format
-        (param, [data]), where param is expected to contain the key
-        'L', wich is interpreted as some sort of lattice size, to be
-        taken to infinity
-
-        fns (iterable): The functions the data is to be fitted to.
-
-        delta (iterable, optional): The error on the input data.
-
-        wij (iterable, optional): The weights of the data points."""
         if not wij:
             wij = [1]*len(data_in)
         assert len(wij) == len(data_in)
@@ -131,6 +142,7 @@ def mk_plot(plot):
     plt.savefig(plot.pdfname)
 
 def therm(data, arg_dict):
+    """Estimate thermalization effects, make a plot."""
     for label in sorted(data.keys()):
         print "* label:", label
         for o in arg_dict["orders"]:
@@ -146,6 +158,7 @@ def therm(data, arg_dict):
             plt.show()
 
 def extrapolate(data, arg_dict, f = (lambda x: 1., lambda x: x)):
+    """Extrapolate data. Optionally make a plot."""
     # check if target lattice sizes are given
     # if not, do the extrapolation for all lattice sizes
     if not arg_dict['L_sizes']:

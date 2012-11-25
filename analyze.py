@@ -1,24 +1,44 @@
 #!/usr/bin/env python
+"""
+:mod:`analyze` -- main analysis script.
+==========================================
+
+.. module: analyze
+
+Data analysis for numerical stochastic perturbation theory. This is
+the main script. It will
+
+1. Read the ``xml`` configuration file.
+
+2. Read all input data as specified in the configuration.
+
+3. Perform the action that are specified in the input.
+"""
 import argparse
 import sys
 # nasty workaround to enabple pdf plots
 if "--clplot" in sys.argv:
     import matplotlib
     matplotlib.use('agg')
-from parser import parse_file
+from xml_parser import parse_file
 import actions
 import numpy as np
 import os
 
 class Data:
+    """Read all data files from a directory. The information given in
+    the ``xml`` input will be stored in various data memebers.
+
+    :param d: :class:`parser.Directory` instance.
+    """
     def __init__(self, d):
-        # remember maximum order ...
+        #: perturbative order
         self.ord = d.order
-        # ... tau value ...
+        #: tau value (integration step size)
         self.tau = d.tauval
-        # ... thermalization cutoff ...
+        #: thermalization cut-off
         self.ncut = d.ntherm
-        # ... and the lattice size
+        #: lattice size
         self.L = d.L
         # determine data type
         dt = np.complex if d.complex else np.float
@@ -33,10 +53,11 @@ class Data:
                        .real[self.ncut*self.ord:]\
                        *d.normalization
                    for f in files]
-        # number of replica
+        #: number of replica
         self.nrep = len(raw)
-        # number of data points / replicum / order
+        #: number of data points / replicum / order
         self.N = raw[0].size / self.ord
+        # the raw data
         self.data = np.concatenate(raw)\
             .reshape( self.nrep * self.N, self.ord )\
             .transpose().reshape(self.ord, self.nrep, self.N)

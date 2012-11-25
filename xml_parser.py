@@ -1,3 +1,102 @@
+r"""
+:mod:`xml_parser` -- the ``xml`` parser back-end
+==================================================
+.. module: xml_parser
+.. moduleauthor: Dirk Hesse <herr.dirk.hesse@gmail.com>
+
+This module contains the parser back-end, which relies on a ``sax``
+parser. The general idea is that we construct a python object
+corresponding to each tag encountered during the parse. In the end, we
+effectively convert the ``xml`` to a tree of python objects.
+
+Quick ``xml`` overview.
+=========================
+
+- Each input file *must* contain one <analysis> tag.
+
+  * Each analysis contains one or more <directory> tags. They specify
+    directories where measured data resides. If there are more than
+    one data files in a directory, they are considered to be
+    replica. Each <directory> tag contains
+
+    - A <path> tag where the path to the data files is given.
+  
+    - A <tauval> tag that contains the value for the integrator step size
+      :math:`\tau_g`.
+
+    - A <Lval> tag that contains the lattice size :math:`L/a`.
+
+    - A <ntherm> tag that contains the number of measurements per
+      replicum that should be omitted to account for thermalization.
+
+    - A <max_order> tag that specifies the perturbative order.
+
+    - A <normalization> tag that specifies a normalization factor (can
+      be omitted).
+
+    - A <swap_endian> tag that tells the code to swap the endianness
+      of the input data.
+
+    - A <complex_tag> that tells the code that the input data is
+      complex (only the real part will be used, tough).
+
+    - A <label> tag that will label the data in the analysis (can be
+      omitted).
+
+  * Each analysis may contain one or more <action> tags. At the
+    moment, there are three actions defined:
+
+      - <show> Just prints out the mean values, estimated
+        autocorrelation time and the estimated errors thereof.
+
+      - <extrapolate> extrapolates the data linearly to zero
+        integration step size.
+
+      - <therm> plots the mean value an estimated error vs. the
+        thermalization cut-off to allow the user to estimate the time
+        the simulation needs to thermalize.
+
+
+Minimalist example
+=======================
+
+The following example shows the parser at work::
+
+  >>> f = open("dummy", "w")
+  >>> xml = '''
+  ... <analysis>
+  ...   <directory>
+  ...     <label>t.005</label>
+  ...     <path>example/data.005</path>
+  ...     <tauval>.005</tauval>
+  ...     <Lval>8</Lval>
+  ...     <ntherm>10</ntherm>
+  ...     <max_order>5</max_order>
+  ...     <normalization>0.053058750062</normalization>
+  ...     <swap_endian/>
+  ...     <complex/>
+  ...   </directory>
+  ...   <actions>
+  ...     <show orders="2 4"/>
+  ...   </actions>
+  ... </analysis>
+  ... '''
+  >>> f.write(xml)
+  >>> f.close()
+  >>> from parser import parse_file
+  >>> analysis = parse_file("dummy")
+  >>> analysis.directories[0].path
+  u'example/data.005'
+  >>> analysis.directories[0].normalization
+  0.053058750062
+  >>> analysis.directories[0].L
+  8
+  >>> analysis.actions[0].function
+  'show'
+
+Don't forget to check out the examples in the sub-directory
+``example`` of the source tree.
+"""
 import xml.sax.handler
 import os
 import fnmatch
@@ -5,13 +104,20 @@ import copy
 import sys
 
 def create_element(name, parent, attrs):
-    """!Cerate an element of the process.
+    """Create an element of the process.  This is done by
+    instantiating the object with corresponding name. This means, to
+    make ``jekyll`` understand the tag <my-tag>, it is enough to
+    define the class My-tag (note capitalization) in this namespace
+    and have it inherit from Node to add some convenience functions.
 
-    This is done by instanciating the object w/ corresponding
-    name. This means, to make PY-PASTOR understand the tag <my-tag>,
-    it is enough to define the class My-tag (note capitalization) in
-    this namespace and have it inherit from Node to add some
-    convenience functions."""
+    :param name: Name of the tag encountered. Should match the name of
+                 the object to be created.
+    :type name: str.
+
+    :param parent: The parent object (usually derived from
+                   :class:`Node`).
+    :type parent:  Class
+    """
     name = name.lower().capitalize() # get the capitalization right
     try:
         tmp = eval(name)(attrs)
@@ -22,7 +128,7 @@ def create_element(name, parent, attrs):
     return tmp
 
 class Root(xml.sax.handler.ContentHandler):
-    """!Root code element."""
+    """Root code element."""
     def __init__(self, xml_filename):
         self.current = self
         self.project = None
@@ -30,33 +136,69 @@ class Root(xml.sax.handler.ContentHandler):
         self.children = []
         self.parent = None
     def startElement(self, name, attrs):
-        """!Create an elemt with name corresponding to the tag
+        """Create an elemt with name corresponding to the tag
         name. Ignores attributes"""
         old = self.current
         self.current = create_element(name, self.current, attrs)
         old.children.append(self.current)
     def endElement(self, name):
-        """!Call finalize on current element and reset the current to
+        """Call finalize on current element and reset the current to
         the previous parent."""
         self.current.finalize()
         self.current = self.current.parent
     def characters(self, data):
-        """!Pass on the characters."""
+        """Pass on the characters."""
         self.current.characters(data)
 
 def tagname(cls):
     return cls.__class__.__name__.lower()
 
 class Node(object):
-    """!Base class for all tags.
+    """Base class for all tags.  This is used to make handling parent
+    nodes etc. somewhat easier. **Make any class you define for your
+    own tags inherit from this one**! This will guarantee that your
+    class will know its parent tag and the parent process. For
+    example, you can implement you own ``xml`` tag that communicates
+    with the process that it is associated with like that::
 
-    This is used to make handling parent nodes etc. somewhat
-    easier. MAKE ANY CLASS YOU DEFINE FOR YOUR OWN TAGS INHERIT FROM
-    THIS!!!
+      class foo(Node):
+        # make parent aware of its foo
+        def __init__(self):
+          self.get_process().foo = self
+        # do nothing when the tag is closed
+        def finalize(self):
+          pass
+
+    Furthermore, any object derived from Node will know the text found
+    between the opening and the closing tag in its ``buffer``
+    member. To access it, you would proceed like this::
+
+      class bar(Node):
+        # tell parent to which bar to go
+        def finalize(self):
+          self.parent.bar = self.buffer
+
+    Given an ``xml`` document structure like 
+    
+    .. code-block:: xml
+
+      <foo>
+        <!-- ... grab Liz, go to the Winchester, have a nice cold
+        pint, and wait for all of this to blow over ... -->
+        <bar>The Winchester</bar>
+      </foo>
+      
+    The parser will create a ``foo`` instance with ``foo.bar``
+    containing the string "The Winchester".
     """
     parent_tags = []
     allowed_values = []
     def __new__(cls, *args, **kwargs):
+        """Use a custom __new__ here to avoid trouble when a class
+        that inherits from Node defines its own __init__. In that case,
+        some of Node's methods like characters could run into trouble
+        because some of the members like characters might not be
+        defined."""
         try:
             obj = object.__new__(cls, *args, **kwargs)
         except TypeError:
@@ -67,30 +209,14 @@ class Node(object):
         obj.opts = {}
         return obj
     def characters(self, data):
-        """!Default characters method, just buffer them."""
+        """Default characters method, just buffer them. This is what
+        lets you access the text between the enclosing tags in
+        `self.buffer` of any derived object's instance.
+
+        :param data: Characters to append.
+        :type data: str.
+        """
         self.buffer += data
-    def xml(self):
-        if self.children:
-            inner = "".join(c.xml() for c in self.children)
-        else:
-            inner = self.buffer.strip()
-        return "<{0}>{1}</{0}>".format(tagname(self),
-                                       inner)
-    def split(self, name):
-        for ch in range(len(self.children)):
-            for new_ch in self.children[ch].split(name):
-                new = copy.copy(self)
-                new.children[ch] = new_ch
-                yield new
-    def has_parent(self, test):
-        cand = self
-        while cand.parent:
-            try:
-                if test(cand.parent):
-                    return True
-            except AttributeError:
-                pass
-            cand = cand.parent
     
 class Analysis(Node):
     def __init__(self, attrs):
@@ -131,13 +257,20 @@ class Max_order(Node):
         self.parent.order = int(self.buffer.strip())
 
 class Directory(Node):
+    """Directory to read data from."""
     def __init__(self, attrs):
+        #: Path.
         self.path = ""
+        #: Switch endianness?
         self.se = False
+        #: Integration step size.
         self.tauval = 0.0
         self.label = False
+        #: Complex data?
         self.complex = False
+        #: Normalization.
         self.normalization = 1.0
+        #: Filter for file names.
         self.fn_contains = ""
     def finalize(self):
         if not self.label:
@@ -255,6 +388,12 @@ class Therm(Node):
         self.parent.actions.append(self)
 
 def parse_file(f):
+    """Parse an entire ``xml`` file.
+
+    :param name: Name of the ``xml`` file to parse.
+    :name type: str.
+    :returns: The :class:`Project` object resulting from the parse.
+    """
     # Create the handler
     handler = Root(f)
     parser = xml.sax.make_parser()
@@ -262,3 +401,4 @@ def parse_file(f):
     parser.setContentHandler(handler)
     parser.parse(f)
     return handler.run
+
