@@ -207,7 +207,7 @@ decomposition.</p>
 
 <dl class="function">
 <dt id="actions.extrapolate">
-<tt class="descclassname">actions.</tt><tt class="descname">extrapolate</tt><big>(</big><em>data</em>, <em>arg_dict</em>, <em>f=(&lt;function &lt;lambda&gt; at 0x103c7a488&gt;</em>, <em>&lt;function &lt;lambda&gt; at 0x103c7a500&gt;)</em><big>)</big><a class="reference internal" href="modules/actions.html#extrapolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#actions.extrapolate" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">actions.</tt><tt class="descname">extrapolate</tt><big>(</big><em>data</em>, <em>arg_dict</em>, <em>f=(&lt;function &lt;lambda&gt; at 0x10ec3c488&gt;</em>, <em>&lt;function &lt;lambda&gt; at 0x10ec3c500&gt;)</em><big>)</big><a class="reference internal" href="modules/actions.html#extrapolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#actions.extrapolate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extrapolate data. Optionally make a plot.</p>
 </dd></dl>
 
@@ -235,39 +235,39 @@ effectively convert the <tt class="docutils literal"><span class="pre">xml</span
 <div class="section" id="quick-xml-overview">
 <h2>Quick <tt class="docutils literal"><span class="pre">xml</span></tt> overview.<a class="headerlink" href="#quick-xml-overview" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">Each input file <em>must</em> contain one &lt;analysis&gt; tag.</p>
+<li><p class="first">Each input file <em>must</em> contain one <tt class="docutils literal"><span class="pre">&lt;analysis&gt;</span></tt> tag.</p>
 <ul>
-<li><p class="first">Each analysis contains one or more &lt;directory&gt; tags. They specify
+<li><p class="first">Each analysis contains one or more <tt class="docutils literal"><span class="pre">&lt;directory&gt;</span></tt> tags. They specify
 directories where measured data resides. If there are more than
 one data files in a directory, they are considered to be
-replica. Each &lt;directory&gt; tag contains</p>
+replica. Each <tt class="docutils literal"><span class="pre">&lt;directory&gt;</span></tt> tag contains</p>
 <ul class="simple">
-<li>A &lt;path&gt; tag where the path to the data files is given.</li>
-<li>A &lt;tauval&gt; tag that contains the value for the integrator step size
+<li>A <tt class="docutils literal"><span class="pre">&lt;path&gt;</span></tt> tag where the path to the data files is given.</li>
+<li>A <tt class="docutils literal"><span class="pre">&lt;tauval&gt;</span></tt> tag that contains the value for the integrator step size
 <span class="math">\(\tau_g\)</span>.</li>
-<li>A &lt;Lval&gt; tag that contains the lattice size <span class="math">\(L/a\)</span>.</li>
-<li>A &lt;ntherm&gt; tag that contains the number of measurements per
+<li>A <tt class="docutils literal"><span class="pre">&lt;Lval&gt;</span></tt> tag that contains the lattice size <span class="math">\(L/a\)</span>.</li>
+<li>A <tt class="docutils literal"><span class="pre">&lt;ntherm&gt;</span></tt> tag that contains the number of measurements per
 replicum that should be omitted to account for thermalization.</li>
-<li>A &lt;max_order&gt; tag that specifies the perturbative order.</li>
-<li>A &lt;normalization&gt; tag that specifies a normalization factor (can
+<li>A <tt class="docutils literal"><span class="pre">&lt;max_order&gt;</span></tt> tag that specifies the perturbative order.</li>
+<li>A <tt class="docutils literal"><span class="pre">&lt;normalization&gt;</span></tt> tag that specifies a normalization factor (can
 be omitted).</li>
-<li>A &lt;swap_endian&gt; tag that tells the code to swap the endianness
+<li>A <tt class="docutils literal"><span class="pre">&lt;swap_endian&gt;</span></tt> tag that tells the code to swap the endianness
 of the input data.</li>
-<li>A &lt;complex_tag&gt; that tells the code that the input data is
+<li>A <tt class="docutils literal"><span class="pre">&lt;complex_tag&gt;</span></tt> that tells the code that the input data is
 complex (only the real part will be used, tough).</li>
-<li>A &lt;label&gt; tag that will label the data in the analysis (can be
-omitted).</li>
+<li>A <tt class="docutils literal"><span class="pre">&lt;label&gt;</span></tt> tag that will label the data in the analysis (can be
+omitted). <strong>Labels must be unambiguous.</strong></li>
 </ul>
 </li>
-<li><p class="first">Each analysis may contain one or more &lt;action&gt; tags. At the
+<li><p class="first">Each analysis may contain one or more <tt class="docutils literal"><span class="pre">&lt;action&gt;</span></tt> tags. At the
 moment, there are three actions defined:</p>
 <blockquote>
 <div><ul class="simple">
-<li>&lt;show&gt; Just prints out the mean values, estimated
+<li><tt class="docutils literal"><span class="pre">&lt;show&gt;</span></tt> Just prints out the mean values, estimated
 autocorrelation time and the estimated errors thereof.</li>
-<li>&lt;extrapolate&gt; extrapolates the data linearly to zero
+<li><tt class="docutils literal"><span class="pre">&lt;extrapolate&gt;</span></tt> extrapolates the data linearly to zero
 integration step size.</li>
-<li>&lt;therm&gt; plots the mean value an estimated error vs. the
+<li><tt class="docutils literal"><span class="pre">&lt;therm&gt;</span></tt> plots the mean value an estimated error vs. the
 thermalization cut-off to allow the user to estimate the time
 the simulation needs to thermalize.</li>
 </ul>
