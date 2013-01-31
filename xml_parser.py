@@ -277,9 +277,20 @@ class Directory(Node):
             self.label = self.path
         self.parent.add_directory(self)
 
+class LabelError(Exception):
+  pass
+
 class Label(Node):
+    used = []
     def finalize(self):
-        self.parent.label = self.buffer.strip()
+      self.parent.label = self.buffer.strip()
+      if self.parent.label in Label.used:
+        errstr = ("Found ambiguos label '{0}'!\n"
+                  "Labels must be unambiguous!\n"
+                  "You can omit the <label> tag and let me choose one for you.")\
+                  .format(self.parent.label)
+        raise LabelError(errstr)
+      Label.used.append(self.parent.label)
 
 class Path(Node):
     def finalize(self):

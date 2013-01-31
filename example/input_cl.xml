@@ -33,9 +33,42 @@
     <swap_endian/>
     <complex/>
   </directory>
+  <directory>
+
+    <path>example/L4/t.003</path>
+    <tauval>.003</tauval>
+    <Lval>4</Lval>
+    <ntherm>10</ntherm>
+    <max_order>5</max_order>
+    <normalization>0.05</normalization>
+    <filenamecontains>Gp</filenamecontains>
+    <complex/>
+  </directory>
+  <directory>
+    <label>tau.002</label>
+    <path>example/L4/t.002</path>
+    <tauval>.002</tauval>
+    <Lval>4</Lval>
+    <ntherm>10</ntherm>
+    <max_order>5</max_order>
+    <normalization>0.05</normalization>
+    <filenamecontains>Gp</filenamecontains>
+    <complex/>
+  </directory>
+  <directory>
+    <label>L4tau.001</label>
+    <path>example/L4/t.001</path>
+    <tauval>.001</tauval>
+    <Lval>4</Lval>
+    <ntherm>10</ntherm>
+    <max_order>5</max_order>
+    <normalization>0.05</normalization>
+    <filenamecontains>Gp</filenamecontains>
+    <complex/>
+  </directory>
   <actions>
     <extrapolate orders="2 4">
-      <plot orders="2" L="8" pdfname="GO2L8.pdf"
+      <plot orders="2" L="8 4" pdfname="GO2.pdf"
             known="0.6382444" ylabel="$m_1^a$"/>
       <plot orders="4" L="8" pdfname="GO4L8.pdf"
             ylabel="$m_2^a$"/>
