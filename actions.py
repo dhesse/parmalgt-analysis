@@ -130,15 +130,15 @@ def mk_plot(plot):
                                          plot.labels):
         plt.errorbar(x, y, yerr=dy, markersize=10,
                     fmt = marker, label=l)
+    pl.legend(loc='upper center', numpoints=1, 
+              bbox_to_anchor=(0.5,1.05), ncol=4)
     for (y, dy), marker in zip(plot.cl, fmts):
         plt.errorbar(0, y, yerr=dy, markersize=10,
                     fmt = marker)
     for x, y in plot.fit:
         plt.plot(x, y, "r--", c='black')
     for y in plot.known:
-        plt.errorbar( [0], [y], markersize=10, fmt="m^" )
-    pl.legend(loc='upper center', numpoints=1, 
-              bbox_to_anchor=(0.5,1.05), ncol=4)
+        plt.errorbar( [0], [y], markersize=10, fmt="m^")
     plt.savefig(plot.pdfname)
 
 def therm(data, arg_dict):
@@ -201,4 +201,5 @@ def extrapolate(data, arg_dict, f = (lambda x: 1., lambda x: x)):
                 fnx = np.linspace(0, max(x[-1]), 100)
                 plt.fit.append((fnx, [ffn[-1](i) for i in fnx]))
                 plt.labels.append("$L = {0}$".format(L))
+                mk_plot(plt)
 
