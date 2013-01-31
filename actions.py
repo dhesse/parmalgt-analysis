@@ -201,5 +201,6 @@ def extrapolate(data, arg_dict, f = (lambda x: 1., lambda x: x)):
                 fnx = np.linspace(0, max(x[-1]), 100)
                 plt.fit.append((fnx, [ffn[-1](i) for i in fnx]))
                 plt.labels.append("$L = {0}$".format(L))
-                mk_plot(plt)
+    for plt in arg_dict["mk_plots"]:
+        mk_plot(plt)
 
